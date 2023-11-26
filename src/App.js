@@ -1,59 +1,74 @@
 import logo from './logo.svg';
 import './App.css';
 import Grid from './components/grid';
+import { useState } from 'react';
 
 const grids = [
   {
     id: 0,
-    value: true
+    value: false
   },
   {
     id: 1,
-    value: true
+    value: false
   },
   {
     id: 2,
-    value: true
+    value: false
   },
   {
     id: 3,
-    value: true
+    value: false
   },
   {
     id: 4,
-    value: true
+    value: false
   },
   {
     id: 5,
-    value: true
+    value: false
   },
   {
     id: 6,
-    value: true
+    value: false
   },
   {
     id: 7,
-    value: true
+    value: false
   },
   {
     id: 8,
     value: false
   }
-]
-
-function displayGrid(grids) {
-  return grids.map(grid => {
-    return (
-      <Grid id={grid.id} gridChecked={grid.value} />
-    )
-  });
-}
+];
 
 function App() {
+  const [newGrid, setnewGrid] = useState(grids);
+
+  function setEachGrid(id, val) {
+    const newGrid = grids.map(grid => {
+      if (grid.id === id) {
+        grid.value = val;
+      }
+
+      return grid;
+    });
+
+    setnewGrid(newGrid);
+  }
+
+  function displayGrid(grids) {
+    return grids.map(grid => {
+      return (
+        <Grid key={grid.id} id={grid.id} gridChecked={grid.value} setEachGrid={setEachGrid} />
+      )
+    });
+  }
+
   return (
     <div className="App">
       <div className="row">
-        {displayGrid(grids)}
+        {displayGrid(newGrid)}
       </div>
     </div>
   );
