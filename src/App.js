@@ -133,6 +133,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>React Tic Tac Toe</h1>
       <div>{gameover ? 'Game Over' : ""}</div>
       <div className="row">
         {displayGrid(newGrid)}
