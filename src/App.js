@@ -80,6 +80,10 @@ function App() {
   const [gameover, setgameover] = useState(null);
 
   function setEachGrid(id, val) {
+    if (gameover) {
+      return
+    }
+
     //update each grid based on click event
     const newGrid = grids.map(grid => {
       if (grid.id === id) {
