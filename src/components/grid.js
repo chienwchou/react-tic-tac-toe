@@ -8,7 +8,6 @@ function Grid(props) {
 
     return (
         <div id={'grid-' + props.id} className={"col" + (pickedClass)} onClick={() => props.setEachGrid(props.id, true)}>
-            {props.gridChecked ? 'yes' : 'no'}
         </div>
     );
 }

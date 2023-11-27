@@ -116,7 +116,7 @@ function App() {
   function displayGrid(grids) {
     return grids.map(grid => {
       return (
-        <Grid key={grid.id} id={grid.id} gridChecked={grid.value} playerAssigned={grid.assigned} setEachGrid={setEachGrid} />
+        <Grid key={grid.id} id={grid.id} playerAssigned={grid.assigned} setEachGrid={setEachGrid} />
       )
     });
   }
