@@ -5,3 +5,21 @@
 .player-2-picked {
     background-color: chocolate;
 }
+
+#grid-0,
+#grid-1,
+#grid-3,
+#grid-4 {
+    border-right: 3px solid;
+    border-bottom: 3px solid;
+}
+
+#grid-2,
+#grid-5 {
+    border-bottom: 3px solid;
+}
+
+#grid-6,
+#grid-7 {
+    border-right: 3px solid;
+}
