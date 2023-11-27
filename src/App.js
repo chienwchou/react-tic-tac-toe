@@ -2,7 +2,7 @@ import './App.css';
 import Grid from './components/grid';
 import { useState } from 'react';
 
-const grids = [
+const defaultGrids = [
   {
     id: 0,
     value: false,
@@ -74,8 +74,18 @@ function calculateWinner(grids) {
   return null;
 }
 
+function checkGameStatus(grids) {
+  for (let grid of grids) {
+    if (grid.assigned == null) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 function App() {
-  const [newGrid, setnewGrid] = useState(grids);
+  const [newGrid, setnewGrid] = useState(defaultGrids);
   const [currentPlayer, setcurrentPlayer] = useState(player1);
   const [gameover, setgameover] = useState(null);
 
@@ -85,8 +95,8 @@ function App() {
     }
 
     //update each grid based on click event
-    const newGrid = grids.map(grid => {
-      if (grid.id === id) {
+    const updatedGrid = newGrid.map(grid => {
+      if (grid.id === id && grid.assigned === null) {
         grid.value = val;
         grid.assigned = currentPlayer;
       }
@@ -95,12 +105,11 @@ function App() {
     });
 
     //determine whether the game is finished or not
-    const currentGameStatus = calculateWinner(grids);
-    if (currentGameStatus) {
-      setgameover(currentGameStatus)
+    if (checkGameStatus(updatedGrid) || calculateWinner(updatedGrid)) {
+      setgameover(true);
     }
 
-    setnewGrid(newGrid);
+    setnewGrid(updatedGrid);
     setcurrentPlayer(currentPlayer === player1 ? player2 : player1);
   }
 
@@ -112,12 +121,23 @@ function App() {
     });
   }
 
+  function resetGame() {
+    const resetGrid = newGrid.map(grid => {
+      grid.assigned = null;
+      return grid;
+    });
+
+    setnewGrid(resetGrid);
+    setgameover(false);
+  }
+
   return (
     <div className="App">
       <div>{gameover ? 'Game Over' : ""}</div>
       <div className="row">
         {displayGrid(newGrid)}
       </div>
+      <div><button onClick={resetGame}>Reset</button></div>
     </div>
   );
 }
