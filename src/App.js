@@ -90,6 +90,7 @@ function App() {
   const [gameover, setgameover] = useState(null);
 
   function setEachGrid(id, val) {
+    console.log(id, val);
     if (gameover) {
       return
     }
@@ -116,7 +117,7 @@ function App() {
   function displayGrid(grids) {
     return grids.map(grid => {
       return (
-        <Grid key={grid.id} id={grid.id} playerAssigned={grid.assigned} setEachGrid={setEachGrid} />
+        <Grid key={grid.id} grid={grid} setEachGrid={setEachGrid} />
       )
     });
   }
