@@ -88,7 +88,16 @@ function App() {
   const [newGrid, setnewGrid] = useState(defaultGrids);
   const [currentPlayer, setcurrentPlayer] = useState(player1);
 
+  let gameOver = false;
+  if (checkGameStatus(newGrid) || calculateWinner(newGrid)) {
+    gameOver = true;
+  }
+
   function setEachGrid(id, val) {
+    if (gameOver) {
+      return;
+    }
+
     setnewGrid(newGrid => {
       const updatedGrid = newGrid.map(grid => {
         if (grid.id === id && grid.assigned === null) {
@@ -126,8 +135,9 @@ function App() {
   return (
     <div className="App">
       <h1>React Tic Tac Toe</h1>
+      <div>{gameOver ? 'Game Over' : ''}</div>
       <div className="row">
-        {displayGrid(newGrid)}
+        {displayGrid(newGrid, gameOver)}
       </div>
       <div><button onClick={resetGame}>Reset</button></div>
     </div>
